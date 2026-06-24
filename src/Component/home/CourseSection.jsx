@@ -1,0 +1,257 @@
+// import React from "react";
+// import { useState } from "react";
+// import BookNow from "../payment/BookNow ";
+// import axios from "axios";
+// import { useEffect } from "react";
+
+
+// const fetchCourses = async () => {
+//   try {
+
+//     const res = await axios.get(
+//       "http://localhost:2334/api/courses"
+//     );
+
+//     const activeCourses = res.data.data.filter(
+//       (course) => course.active === true
+//     );
+
+//     setCourses(activeCourses);
+
+//   } catch (error) {
+
+//     console.log(error);
+
+//   } finally {
+
+//     setLoading(false);
+
+//   }
+// };
+// useEffect(() => {
+//   fetchCourses();
+// }, []);
+
+// const CourseSection = () => {
+// const [courses, setCourses] = useState([]);
+// const [loading, setLoading] = useState(true);
+// const [selectedCourse, setSelectedCourse] = useState(null);
+//   // const [selectedCourse, setSelectedCourse] = useState(null);
+// if (loading) {
+//   return (
+//     <div className="py-20 text-center">
+//       Loading Courses...
+//     </div>
+//   );
+// }
+//   return (
+//     <section className="py-28 px-6 bg-white dark:bg-zinc-950 mt-20">
+//       <div className="max-w-7xl mx-auto">
+//         <div className="text-center mb-16">
+//           <h2 className="text-4xl md:text-5xl font-black text-zinc-900 dark:text-white">
+//             Explore Our Top Courses
+//           </h2>
+//           <p className="mt-5 text-lg text-zinc-600 dark:text-zinc-300 max-w-2xl mx-auto">
+//             Learn from industry experts with interactive lessons.
+//           </p>
+//         </div>
+//         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+//           {courses.map((course, index) => (
+//             <div
+//               key={index}
+//               style={{ transition: "transform 0.3s ease" }}
+//               onMouseEnter={(e) => (e.currentTarget.style.transform = "translateY(-8px)")}
+//               onMouseLeave={(e) => (e.currentTarget.style.transform = "translateY(0px)")}
+//               className="overflow-hidden rounded-3xl bg-white dark:bg-zinc-900 shadow-xl"
+//             >
+//               <div className="relative h-56 overflow-hidden">
+//                 <img src={course.image} alt={course.title} className="h-full w-full object-cover" />
+//                 <div className="absolute top-4 left-4 rounded-full bg-indigo-500 px-4 py-1 text-xs font-semibold text-white">
+//                   {course.category}
+//                 </div>
+//               </div>
+//               <div className="p-6">
+//                 <div className="flex items-center justify-between">
+//                   <span className="text-sm font-semibold text-yellow-500">⭐ {course.rating}</span>
+//                   <span className="text-sm text-zinc-500">👥 {course.students} Students</span>
+//                 </div>
+//                 <h3 className="mt-4 text-2xl font-bold text-zinc-900 dark:text-white">{course.title}</h3>
+//                 <p className="mt-4 text-sm text-zinc-500">🕐 {course.duration}</p>
+//                 <p className="mt-4 text-sm text-zinc-500">${course.price}</p>
+//                 {/* <button className="mt-6 w-full rounded-2xl bg-gradient-to-r from-indigo-500 to-violet-600 px-5 py-3 text-sm font-semibold text-white">
+//                   Book Now →
+//                 </button> */}
+
+//                 <button
+//                   onClick={() => setSelectedCourse(course)}
+//                   className="mt-6 w-full rounded-2xl bg-gradient-to-r from-indigo-500 to-violet-600 px-5 py-3 text-sm font-semibold text-white"
+//                 >
+//                   Book Now →
+//                 </button>
+//               </div>
+//             </div>
+//           ))}
+//         </div>
+//       </div>
+//       {selectedCourse && (
+//         <BookNow
+//           course={selectedCourse}
+//           onClose={() => setSelectedCourse(null)}
+//         />
+//       )}
+//     </section>
+//   );
+// };
+
+// export default CourseSection;
+
+import React, { useState, useEffect } from "react";
+import BookNow from "../payment/BookNow ";
+import axios from "axios";
+import api from "../../api/axios";
+const CourseSection = () => {
+
+  const [courses, setCourses] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [selectedCourse, setSelectedCourse] = useState(null);
+
+  useEffect(() => {
+    fetchCourses();
+  }, []);
+
+
+  //  const fetchCourses = async () => {
+  //   try {
+
+  //     const token = localStorage.getItem("token");
+
+  //     const response = await axios.get(
+  //       "http://localhost:2334/api/courses",
+  //       {
+  //         headers: {
+  //           Authorization: `Bearer ${token}`,
+  //         },
+  //       }
+  //     );
+
+  //     console.log("COURSES =", response.data);
+
+  //     setCourses(response.data.data);
+
+  //   } catch (error) {
+
+  //     console.log(error);
+
+  //   } finally {
+
+  //     setLoading(false);
+  //   }
+  // };
+
+const fetchCourses = async () => {
+  try {
+
+    const response = await api.get("/api/courses");
+
+    console.log("COURSES =", response.data);
+
+    setCourses(response.data.data);
+
+  } catch (error) {
+
+    console.log(error);
+
+  } finally {
+
+    setLoading(false);
+  }
+};
+  if (loading) {
+    return (
+      <div className="py-20 text-center">
+        Loading Courses...
+      </div>
+    );
+  }
+
+  return (
+    <section className="py-28 px-6 bg-white dark:bg-zinc-950 mt-20">
+
+      <div className="max-w-7xl mx-auto">
+
+        <div className="text-center mb-16">
+          <h2 className="text-4xl md:text-5xl font-black text-zinc-900 dark:text-white">
+            Explore Our Top Courses
+          </h2>
+
+          <p className="mt-5 text-lg text-zinc-600 dark:text-zinc-300 max-w-2xl mx-auto">
+            Learn from industry experts with interactive lessons.
+          </p>
+        </div>
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+          {courses.map((course) => (
+
+            <div
+              key={course.id}
+              className="overflow-hidden rounded-3xl bg-white dark:bg-zinc-900 shadow-xl hover:-translate-y-2 transition-all duration-300"
+            >
+
+              <div className="relative h-56 overflow-hidden">
+
+                <img
+                  src={course.image}
+                  alt={course.title}
+                  className="h-full w-full object-cover"
+                />
+
+                <div className="absolute top-4 left-4 rounded-full bg-indigo-500 px-4 py-1 text-xs font-semibold text-white">
+                  {course.category}
+                </div>
+
+              </div>
+
+              <div className="p-6">
+
+                <h3 className="text-2xl font-bold text-zinc-900 dark:text-white">
+                  {course.title}
+                </h3>
+
+                <p className="mt-3 text-sm text-zinc-500">
+                  🕐 {course.duration} Hours
+                </p>
+
+                <p className="mt-3 text-lg font-semibold text-indigo-600">
+                  ₹ {course.price}
+                </p>
+
+                <button
+                  onClick={() => setSelectedCourse(course)}
+                  className="mt-6 w-full rounded-2xl bg-gradient-to-r from-indigo-500 to-violet-600 px-5 py-3 text-sm font-semibold text-white"
+                >
+                  Book Now →
+                </button>
+
+              </div>
+
+            </div>
+
+          ))}
+
+        </div>
+
+      </div>
+
+      {selectedCourse && (
+        <BookNow
+          course={selectedCourse}
+          onClose={() => setSelectedCourse(null)}
+        />
+      )}
+
+    </section>
+  );
+};
+
+export default CourseSection;
