@@ -123,7 +123,7 @@ const handleLogout = () => {
                           stiffness: 300,
                           damping: 25,
                         }}
-                        className="absolute left-0 bottom-0 h-[3px] w-full rounded-full bg-gradient-to-r from-indigo-500 to-violet-600"
+                        className="absolute left-0 bottom-1 h-[3px] w-10 rounded-full bg-gradient-to-r from-indigo-500 to-violet-600"
                       />
                     )}
 

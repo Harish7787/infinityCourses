@@ -140,18 +140,14 @@ const Courses = () => {
       const token = localStorage.getItem("token");
 
       const response = await axios.get(
-        "http://localhost:2334/api/courses",
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
+        "http://localhost:2334/api/courses"
+
       );
 
       console.log("COURSES =", response.data);
 
       setCourses(response.data.data);
-                   
+
     } catch (error) {
 
       console.log(error);
@@ -257,7 +253,7 @@ const Courses = () => {
     }
   };
   return (
-    <div className="space-y-6 mt-10">
+    <div className="space-y-8">
       {/* Actions Header */}
       {/* <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
@@ -273,39 +269,39 @@ const Courses = () => {
         </button>
       </div> */}
 
-<div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
 
-  <div>
-    <h1 className="text-2xl md:text-3xl font-bold tracking-tight">
-      Courses Catalog
-    </h1>
+        <div>
+          <h1 className="text-2xl md:text-3xl font-bold tracking-tight">
+            Courses Catalog
+          </h1>
 
-    <p className="text-sm text-slate-400 mt-1">
-      Manage, update and restore course records.
-    </p>
-  </div>
+          <p className="text-sm text-slate-400 mt-1">
+            Manage, update and restore course records.
+          </p>
+        </div>
 
-  <div className="flex gap-3">
+        <div className="flex gap-3">
 
-    <button
-      onClick={() => navigate("/admin/restore-courses")}
-      className="flex items-center gap-2 bg-green-600 hover:bg-green-500 text-white px-4 py-2.5 rounded-xl shadow-lg"
-    >
-      <RotateCcw size={16} />
-      Restore Courses
-    </button>
+          <button
+            onClick={() => navigate("/admin/restore-courses")}
+            className="flex items-center gap-2 bg-green-600 hover:bg-green-500 text-white px-4 py-2.5 rounded-xl shadow-lg"
+          >
+            <RotateCcw size={16} />
+            Restore Courses
+          </button>
 
-    <button
-      onClick={() => navigate("/admin/add-course")}
-      className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-2.5 rounded-xl shadow-lg"
-    >
-      <Plus size={16} />
-      Add Course
-    </button>
+          <button
+            onClick={() => navigate("/admin/add-course")}
+            className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-2.5 rounded-xl shadow-lg"
+          >
+            <Plus size={16} />
+            Add Course
+          </button>
 
-  </div>
+        </div>
 
-</div>
+      </div>
 
       {/* Control Panel Filter Belt */}
       <div className="flex flex-col sm:flex-row items-center gap-3 bg-white dark:bg-[#111827] p-3 rounded-2xl border border-slate-200 dark:border-slate-800">
@@ -322,7 +318,7 @@ const Courses = () => {
         <button className="flex items-center gap-2 bg-slate-50 dark:bg-slate-900 hover:bg-slate-100 text-slate-600 dark:text-slate-300 px-4 py-2 rounded-xl text-sm transition-all w-full sm:w-auto justify-center">
           <Filter size={16} /> Advanced Filters
         </button>
-      </div>
+      </div>  
 
       {/* Data Presentation Node */}
       <Card className="overflow-hidden">

@@ -30,12 +30,7 @@ const CourseDetails = () => {
             console.log("ID =", id);
 
             const res = await axios.get(
-                `http://localhost:2334/api/courses/${id}`,
-                {
-                    headers: {
-                        Authorization: `Bearer ${localStorage.getItem("token")}`,
-                    },
-                }
+                `http://localhost:2334/api/courses/${id}`
             );
             console.log(res.data);
 

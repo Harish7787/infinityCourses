@@ -166,10 +166,17 @@ const fetchCourses = async () => {
     setLoading(false);
   }
 };
+
   if (loading) {
     return (
-      <div className="py-20 text-center">
-        Loading Courses...
+      <div className="py-90 flex flex-col items-center">
+
+        <div className="animate-spin rounded-full h-14 w-14 border-4 border-indigo-600 border-t-transparent"></div>
+
+        <p className="mt-4 text-slate-500">
+          Loading course...
+        </p>
+
       </div>
     );
   }

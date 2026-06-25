@@ -438,16 +438,16 @@
 import React, { useEffect, useState } from "react";
 import {
   Search,
-  Users,
-  Shield,
+  UserPlus,
+  Pencil,
+  Trash2,
   UserCircle2,
-  CheckCircle,
-  MoreVertical,
-} from "lucide-react";
+} from "lucide-react";;
 
 import { Card } from "../ui/Card";
 import { Badge } from "../ui/Badge";
 import { getUsers } from "../../api/userApi";
+import { useNavigate } from "react-router-dom";
 
 const UsersData = () => {
   const [users, setUsers] = useState([]);
@@ -489,6 +489,8 @@ const UsersData = () => {
     (u) => u.role === "ADMIN"
   ).length;
 
+  const navigate = useNavigate();
+
   if (loading) {
     return (
       <div className="flex justify-center items-center h-[500px]">
@@ -498,10 +500,10 @@ const UsersData = () => {
   }
 
   return (
-  <div className="space-y-6">
+    <div className="space-y-6">
 
-  {/* Header */}
-  <div className="flex justify-between items-center">
+      {/* Header */}
+      {/* <div className="flex justify-between items-center">
 
     <div>
       <h1 className="text-3xl font-bold">
@@ -513,214 +515,398 @@ const UsersData = () => {
       </p>
     </div>
 
-  </div>
+  </div> */}
 
-  {/* Search */}
-  <div className="bg-white rounded-2xl border p-4">
+      <div className=" items-center mb-6">
 
-    <div className="relative">
+        <div>
+          <h1 className="text-3xl font-bold">
+            Users Management
+          </h1>
 
-      <Search
-        size={18}
+          <p className="text-slate-500 mt-1">
+            Manage all registered users
+          </p>
+        </div>
+
+
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6 mt-6">
+
+          {/* Search */}
+          <div className="relative flex-1 max-w-lg">
+
+            <Search
+              size={18}
+              className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
+            />
+
+            <input
+              type="text"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              placeholder="Search users by name or email..."
+              className="
+        w-full
+        bg-white
+        dark:bg-[#111827]
+        border
+        border-slate-200
+        dark:border-slate-700
+        rounded-2xl
+        pl-11
+        pr-4
+        py-3
+        text-sm
+        outline-none
+        transition-all
+        focus:ring-2
+        focus:ring-indigo-500/30
+        focus:border-indigo-500
+      "
+            />
+
+          </div>
+
+          {/* Action Buttons */}
+          <div className="flex items-center gap-3">
+
+            {/* Restore Users */}
+            <button
+              className="
+        flex
+        items-center
+        gap-2
+        bg-green-600
+        hover:bg-green-700
+        text-white
+        font-medium
+        px-5
+        py-3
+        rounded-2xl
+        shadow-md
+        transition-all
+        duration-300
+      "
+              onClick={() => { navigate("/admin/restore-users") }}
+            >
+              <UserPlus size={18} />
+              Restore Users
+            </button>
+
+            {/* Add User */}
+            <button
+              className="
+        flex
+        items-center
+        gap-2
+        bg-gradient-to-r
+        from-indigo-600
+        to-violet-600
+        hover:from-indigo-500
+        hover:to-violet-500
+        text-white
+        font-medium
+        px-5
+        py-3
+        rounded-2xl
+        shadow-lg
+        shadow-indigo-500/20
+        transition-all
+        duration-300
+      "
+              onClick={() => { navigate("/admin/add-user") }}
+            >
+              <UserPlus size={18} />
+              Add User
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <div
         className="
-          absolute
-          left-3
-          top-1/2
-          -translate-y-1/2
-          text-slate-400
-        "
-      />
+    bg-white
+    dark:bg-[#111827]
+    rounded-3xl
+    border
+    border-slate-200
+    dark:border-slate-800
+    overflow-hidden
+    shadow-sm
+  "
+      >
 
-      <input
-        type="text"
-        placeholder="Search users..."
-        value={search}
-        onChange={(e) =>
-          setSearch(e.target.value)
-        }
-        className="
-          w-full
-          border
-          rounded-xl
-          py-3
-          pl-10
-          pr-4
-          outline-none
-          focus:ring-2
-          focus:ring-indigo-500
-        "
-      />
+        <div className="overflow-x-auto">
 
-    </div>
+          <table className="w-full">
 
-  </div>
+            <thead>
 
-  {/* Table */}
-  <div
-    className="
-      bg-white
-      rounded-2xl
-      border
-      overflow-hidden
-    "
-  >
-
-    <table className="w-full">
-
-      <thead>
-
-        <tr
-          className="
-            bg-slate-50
-            border-b
-            text-slate-600
+              <tr
+                className="bg-slate-50 dark:bg-slate-900 text-slate-400 font-semibold text-xs uppercase border-b border-slate-200 dark:border-slate-800
           "
-        >
-          <th className="p-4 text-left">
-            Name
-          </th>
+              >
 
-          <th className="text-left">
-            Email
-          </th>
+                <th className="px-6 py-4 text-left">
+                  User
+                </th>
 
-          <th className="text-left">
-            Phone
-          </th>
+                <th className="px-6 py-4 text-left">
+                  Email
+                </th>
 
-          <th className="text-left">
-            Role
-          </th>
+                <th className="px-6 py-4 text-left">
+                  Phone
+                </th>
 
-          <th className="text-left">
-            Status
-          </th>
+                <th className="px-6 py-4 text-left">
+                  Role
+                </th>
 
-          <th className="text-center">
-            Actions
-          </th>
+                <th className="px-6 py-4 text-left">
+                  Status
+                </th>
 
-        </tr>
+                <th className="px-6 py-4 text-center">
+                  Actions
+                </th>
 
-      </thead>
+              </tr>
 
-      <tbody>
+            </thead>
 
-        {filteredUsers.map((user) => (
+            <tbody>
 
-          <tr
-            key={user.id}
-            className="
-              border-b
-              hover:bg-slate-50
-            "
-          >
+              {filteredUsers.map((user) => (
 
-            <td className="p-4">
-
-              <div className="flex items-center gap-3">
-
-                <div
+                <tr
+                  key={user.id}
                   className="
+              border-b
+              border-slate-100
+              dark:border-slate-800
+              hover:bg-slate-50
+              dark:hover:bg-slate-900/40
+              transition
+            "
+                >
+
+                  {/* User */}
+
+                  {/* <td className="px-6 py-4">
+
+                    <div className="flex items-center gap-3">
+
+                      <div
+                        className="
                     h-10
                     w-10
                     rounded-full
                     bg-indigo-100
+                    dark:bg-indigo-500/20
                     flex
                     items-center
                     justify-center
-                    font-semibold
-                    text-indigo-600
                   "
-                >
-                  {user.name?.charAt(0)}
-                </div>
+                      >
 
-                <span>
-                  {user.name}
-                </span>
+                        <UserCircle2
+                          size={24}
+                          className="text-indigo-600"
+                        />
 
-              </div>
+                      </div>
 
-            </td>
+                      <div>
 
-            <td>{user.email}</td>
+                        <h4 className="font-medium">
+                          {user.name}
+                        </h4>
 
-            <td>
-              {user.phone || "-"}
-            </td>
+                        <p className="text-xs text-slate-500">
+                          ID #{user.id}
+                        </p>
 
-            <td>
+                      </div>
 
-              <span
-                className={`
-                  px-3
-                  py-1
-                  rounded-full
-                  text-xs
-                  font-medium
+                    </div>
 
-                  ${
-                    user.role === "ADMIN"
-                      ? "bg-red-100 text-red-600"
-                      : "bg-blue-100 text-blue-600"
-                  }
-                `}
-              >
-                {user.role}
-              </span>
+                  </td> */}
 
-            </td>
+                  <td className="p-4">
+  <div className="flex items-center gap-3">
 
-            <td>
+    <img
+      src={
+        user.avatar ||
+        "https://ui-avatars.com/api/?name=" +
+          user.name
+      }
+      alt={user.name}
+      className="
+        w-11
+        h-11
+        rounded-full
+        object-cover
+        border
+      "
+    />
 
-              <span
-                className={`
-                  px-3
-                  py-1
-                  rounded-full
-                  text-xs
-                  font-medium
+    <div>
+      <h4 className="font-semibold">
+        {user.name}
+      </h4>
 
-                  ${
-                    user.active
-                      ? "bg-green-100 text-green-600"
-                      : "bg-red-100 text-red-600"
-                  }
-                `}
-              >
-                {user.active
-                  ? "Active"
-                  : "Inactive"}
-              </span>
-
-            </td>
-
-            <td className="text-center">
-
-              <button
-                className="
-                  p-2
-                  rounded-lg
-                  hover:bg-slate-100
-                "
-              >
-                <MoreVertical size={18} />
-              </button>
-
-            </td>
-
-          </tr>
-
-        ))}
-
-      </tbody>
-
-    </table>
+      <p className="text-xs text-slate-500">
+        ID #{user.id}
+      </p>
+    </div>
 
   </div>
+</td>
 
-</div>
+                  {/* Email */}
+
+                  <td className="px-6 py-4">
+                    {user.email}
+                  </td>
+
+                  {/* Phone */}
+
+                  <td className="px-6 py-4">
+                    {user.phone || "-"}
+                  </td>
+
+                  {/* Role */}
+
+                  <td className="px-6 py-4">
+
+                    <span
+                      className={`
+                  px-3 py-1 rounded-full text-xs font-medium
+
+                  ${user.role === "ADMIN"
+                          ? "bg-red-100 text-red-600"
+                          : "bg-blue-100 text-blue-600"
+                        }
+                `}
+                    >
+                      {user.role}
+                    </span>
+
+                  </td>
+
+                  {/* Status */}
+
+                  <td className="px-6 py-4">
+
+                    <span
+                      className={`
+                  px-3 py-1 rounded-full text-xs font-medium
+
+                  ${user.active
+                          ? "bg-green-100 text-green-600"
+                          : "bg-red-100 text-red-600"
+                        }
+                `}
+                    >
+                      {user.active
+                        ? "Active"
+                        : "Inactive"}
+                    </span>
+
+                  </td>
+
+                  {/* Actions */}
+
+                  {/* <td className="px-6 py-4">
+
+                    <div className="flex items-center justify-center gap-3">
+
+                      <button
+                        className="
+                    text-indigo-600
+                    hover:text-indigo-800
+                  "
+                      >
+                        <Pencil
+                          size={18}
+                          onClick={() =>
+                            navigate(`/admin/edit-user/${user.id}`)
+                          }
+                        />
+                      </button>
+
+                      <button
+                        className="
+                    text-red-500
+                    hover:text-red-700
+                  "
+                      >
+                        <Trash2
+                          size={18}
+                          onClick={() =>
+                            deleteUser(user.id)
+                          }
+                        />
+                      </button>
+
+                    </div>
+
+                  </td> */}
+
+                  <td className="text-center">
+                    <div className="flex justify-center gap-2">
+
+                      <button
+                        onClick={() =>
+                          navigate(`/admin/edit-user/${user.id}`)
+                        }
+                        className="
+        p-2
+        rounded-xl
+        bg-blue-50
+        text-blue-600
+        hover:bg-blue-100
+      "
+                      >
+                        <Pencil size={16} />
+                      </button>
+
+                      <button
+                        onClick={() =>
+                          handleDelete(user.id)
+                        }
+                        className="
+        p-2
+        rounded-xl
+        bg-red-50
+        text-red-600
+        hover:bg-red-100
+      "
+                      >
+                        <Trash2 size={16} />
+                      </button>
+
+                    </div>
+                  </td>
+
+                </tr>
+
+              ))}
+
+            </tbody>
+
+          </table>
+
+        </div>
+
+      </div>
+
+    </div>
   );
 };
 

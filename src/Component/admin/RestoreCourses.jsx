@@ -299,7 +299,7 @@ const RestoreCourses = () => {
   }
 
   return (
-    <div className="space-y-6 mt-8">
+    <div className="space-y-8">
 
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
@@ -308,7 +308,7 @@ const RestoreCourses = () => {
         <div>
           <button
             onClick={() => navigate(-1)}
-            className="flex items-center gap-2 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-900 px-4 py-2 rounded-xl mb-9"
+            className="flex items-center gap-2 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-900 px-4 py-2 rounded-xl mb-8"
           >
             <ArrowLeft size={18} />
             Back

@@ -79,14 +79,14 @@ const handleSubmit = async (e) => {
     // Save minimal user data only
     localStorage.setItem("token", token);
 
-    localStorage.setItem(
-      "user",
-      JSON.stringify({
-        id: user.id,
-        role: user.role,
-        email: user.email,
-      })
-    );
+    // localStorage.setItem(
+    //   "user",
+    //   JSON.stringify({
+    //     id: user.id,
+    //     role: user.role,
+    //     email: user.email,
+    //   })
+    // );
 
     // Role-based navigation
     const roleRoutes = {

@@ -27,15 +27,11 @@ const LatestCourse = () => {
 
       const token = localStorage.getItem("token");
 
-      console.log("TOKEN =", token);
+      // console.log("TOKEN =", token);
 
       const res = await axios.get(
-        "http://localhost:2334/api/courses/latest",
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
+        "http://localhost:2334/api/courses/latest"
+        
       );
       setCourses(res.data.data);
 
@@ -51,7 +47,7 @@ const LatestCourse = () => {
 
   if (loading) {
     return (
-      <div className="flex flex-col items-center">
+      <div className="py-90 flex flex-col items-center">
 
         <div className="animate-spin rounded-full h-14 w-14 border-4 border-indigo-600 border-t-transparent"></div>
 
