@@ -105,7 +105,7 @@ import React, { useState } from 'react';
 import { Badge } from '../ui/Badge';
 import { useEffect } from "react";
 import axios from "axios";
-
+import {  RefreshCw, Mail } from "lucide-react";
 import {
   Plus,
   Search,
@@ -157,13 +157,16 @@ const Courses = () => {
       setLoading(false);
     }
   };
-  if (loading) {
-    return (
-      <div className="p-10 text-center">
-        Loading Courses...
-      </div>
-    );
-  }
+    if (loading) {
+        return (
+            <div className="flex justify-center items-center h-[400px]">
+                <RefreshCw
+                    size={40}
+                    className="animate-spin"
+                />
+            </div>
+        );
+    }
 
   //   const deleteCourse = async (id) => {
 

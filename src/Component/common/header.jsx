@@ -51,9 +51,17 @@ export default function Navbar() {
 //   }
 // });
 
-const storedUser = localStorage.getItem("user");
+const token = localStorage.getItem("token");
 
-const user = storedUser ? JSON.parse(storedUser) : null;
+let user = null;
+
+if (token) {
+  try {
+    user = JSON.parse(atob(token.split(".")[1]));
+  } catch (e) {
+    console.log("Invalid token");
+  }
+}
 
   // Logout
 const handleLogout = () => {
@@ -210,6 +218,8 @@ const handleLogout = () => {
 
           </div>
         </div>
+
+        
       </header>
 
       {/* MOBILE MENU */}

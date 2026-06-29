@@ -1,123 +1,473 @@
-// // export default Topbar;
-// import React from "react";
 
-// import {
-//   Menu,
-//   Bell,
-//   Search,
-// } from "lucide-react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
+import axios from "axios";
+import {
+  Menu,
+  Search,
+  Bell,
+  ChevronDown,
+  User,
+  Settings,
+  LogOut,
+  ShieldCheck,
+} from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
-// const Topbar = ({ setSidebarOpen }) => {
+// const Topbar = ({ onMenuClick }) => {
+//   const [profile, setProfile] = useState(null);
+//   const navigate = useNavigate();
 
-//   return (
-//     <header className="sticky top-0 z-40 border-b border-white/10 bg-white/70 dark:bg-zinc-950/70 backdrop-blur-3xl">
+//   const [open, setOpen] = useState(false);
 
-//       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5">
+//   const dropdownRef = useRef(null);
 
-//         <div className="flex items-center gap-4">
+//   const user = useMemo(() => {
 
-//           <button
-//             onClick={() => setSidebarOpen(true)}
-//             className="rounded-xl p-2 hover:bg-zinc-100 dark:hover:bg-zinc-800 lg:hidden"
-//           >
+//     const token = localStorage.getItem("token");
 
-//             <Menu className="text-zinc-800 dark:text-white" />
+//     if (!token) return null;
 
-//           </button>
+//     try {
 
-//           <div>
+//       return JSON.parse(atob(token.split(".")[1]));
 
-//             <h1 className="text-3xl font-bold text-zinc-900 dark:text-white">
-//               Dashboard
-//             </h1>
+//     } catch {
 
-//             <p className="text-sm text-zinc-500">
-//               Welcome back, Admin 👋
-//             </p>
+//       return null;
 
-//           </div>
+//     }
 
-//         </div>
+//   }, []);
+// const name = profile?.name ?? "Administrator";
 
-//         <div className="flex items-center gap-4">
+// const role = profile?.role ?? "ADMIN";
 
-//           {/* SEARCH */}
-//           <div className="hidden md:flex items-center gap-3 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white/60 dark:bg-zinc-900/60 px-5 py-3 shadow-sm">
+// const email = profile?.email ?? "";
 
-//             <Search className="h-4 w-4 text-zinc-500" />
+// const avatar =
+//     profile?.avatar && profile.avatar.trim() !== ""
+//         ? profile.avatar
+//         : `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=4f46e5&color=ffffff&size=128`;
 
-//             <input
-//               type="text"
-//               placeholder="Search..."
-//               className="bg-transparent text-sm outline-none dark:text-white"
-//             />
+//   useEffect(() => {
 
-//           </div>
+//     const handleClickOutside = (e) => {
 
-//           {/* NOTIFICATION */}
-//           <button className="relative flex h-12 w-12 items-center justify-center rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white/60 dark:bg-zinc-900/60 shadow-sm">
+//       if (
+//         dropdownRef.current &&
+//         !dropdownRef.current.contains(e.target)
+//       ) {
+//         setOpen(false);
+//       }
 
-//             <Bell className="h-5 w-5 text-zinc-700 dark:text-zinc-200" />
+//     };
 
-//             <span className="absolute right-3 top-3 h-2 w-2 rounded-full bg-red-500" />
+//     useEffect(() => {
+//     fetchProfile();
+// }, []);
 
-//           </button>
+//     document.addEventListener("mousedown", handleClickOutside);
 
-//         </div>
+//     return () =>
+//       document.removeEventListener(
+//         "mousedown",
+//         handleClickOutside
+//       );
 
-//       </div>
+//   }, []);
 
-//     </header>
-//   );
+//   const logout = () => {
+
+//     localStorage.removeItem("token");
+
+//     navigate("/login");
+
+//   };
+// const fetchProfile = async () => {
+//     try {
+//         const token = localStorage.getItem("token");
+
+//         const res = await axios.get(
+//             "http://localhost:2334/api/users/me",
+//             {
+//                 headers: {
+//                     Authorization: `Bearer ${token}`,
+//                 },
+//             }
+//         );
+
+//         console.log(res.data);
+
+//         setProfile(res.data);
+
+//     } catch (err) {
+//         console.log(err);
+//     }
 // };
 
-// export default Topbar;
-
-import React from 'react';
-import { Menu, Search, Bell, ChevronDown } from 'lucide-react';
-
 const Topbar = ({ onMenuClick }) => {
+  const navigate = useNavigate();
+
+  const [profile, setProfile] = useState(null);
+  const [open, setOpen] = useState(false);
+
+  const dropdownRef = useRef(null);
+
+  const token = localStorage.getItem("token");
+
+  const name = profile?.name || "Administrator";
+  const role = profile?.role || "ADMIN";
+  const email = profile?.email || "";
+
+  const avatar =
+    profile?.avatar && profile.avatar.trim() !== ""
+      ? profile.avatar
+      : `https://ui-avatars.com/api/?name=${encodeURIComponent(
+          name
+        )}&background=4f46e5&color=ffffff&size=128`;
+
+  const fetchProfile = async () => {
+    try {
+      const res = await axios.get(
+        "http://localhost:2334/api/users/me",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      console.log("PROFILE =", res.data);
+
+      setProfile(res.data);
+
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  // Fetch profile once
+  useEffect(() => {
+    fetchProfile();
+  }, []);
+
+  // Close dropdown
+  useEffect(() => {
+
+    const handleClickOutside = (e) => {
+
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(e.target)
+      ) {
+        setOpen(false);
+      }
+
+    };
+
+    document.addEventListener(
+      "mousedown",
+      handleClickOutside
+    );
+
+    return () =>
+      document.removeEventListener(
+        "mousedown",
+        handleClickOutside
+      );
+
+  }, []);
+
+  const logout = () => {
+    localStorage.removeItem("token");
+    navigate("/login");
+  };
   return (
-    <header className="sticky top-0 z-20 flex items-center justify-between h-16 px-4 md:px-6 bg-white/80 dark:bg-[#111827]/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800">
-      <div className="flex items-center gap-4 flex-1">
-        <button onClick={onMenuClick} className="lg:hidden p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg">
-          <Menu size={20} />
-        </button>
-        
-        {/* Premium Command Search Structure */}
-        <div className="relative max-w-md w-full hidden sm:block">
-          <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" size={16} />
-          <input 
-            type="text" 
-            placeholder="Search commands, courses, users..." 
-            className="w-full bg-slate-100 dark:bg-slate-900 border-none rounded-xl pl-10 pr-4 py-2 text-sm focus:ring-2 focus:ring-indigo-500/20 dark:focus:ring-indigo-400/20 focus:bg-white dark:focus:bg-slate-950 transition-all outline-none"
-          />
-        </div>
-      </div>
+    <header className="sticky top-0 z-40 h-16 backdrop-blur-xl bg-white/80 dark:bg-[#111827]/80 border-b border-slate-200 dark:border-slate-800">
 
-      <div className="flex items-center gap-4">
-        {/* Notifications Mock Indicator */}
-        <button className="p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl relative transition-all">
-          <Bell size={18} />
-          <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-indigo-600 rounded-full" />
-        </button>
+      <div className="flex h-full items-center justify-between px-4 lg:px-8">
 
-        {/* User Identity Element */}
-        <div className="flex items-center gap-3 pl-2 border-l border-slate-200 dark:border-slate-800">
-          <img 
-            src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80" 
-            alt="Profile Avatar" 
-            className="w-8 h-8 rounded-full object-cover ring-2 ring-indigo-500/10"
-          />
-          <div className="hidden md:block text-left">
-            <p className="text-sm font-semibold leading-none">Sarah Jenkins</p>
-            <p className="text-xs text-slate-400 mt-1">Platform Admin</p>
+        {/* Left */}
+
+        <div className="flex items-center gap-4 flex-1">
+
+          <button
+            onClick={onMenuClick}
+            className="lg:hidden rounded-xl p-2 hover:bg-slate-100 dark:hover:bg-slate-800 transition"
+          >
+            <Menu size={22} />
+          </button>
+
+          {/* Search */}
+
+          <div className="relative hidden md:block w-full max-w-lg">
+
+            <Search
+              size={18}
+              className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
+            />
+
+            <input
+              placeholder="Search users, courses, payments..."
+              className="
+              w-full
+              rounded-2xl
+              bg-slate-100
+              dark:bg-slate-900
+              pl-11
+              pr-5
+              py-2.5
+              text-sm
+              outline-none
+              border
+              border-transparent
+              focus:border-indigo-500
+              focus:ring-4
+              focus:ring-indigo-500/10
+              transition
+              "
+            />
+
           </div>
-          <ChevronDown size={14} className="text-slate-400 hidden md:block" />
+
         </div>
+
+        {/* Right */}
+
+        <div className="flex items-center gap-3">
+
+          {/* Notification */}
+
+          <button className="relative rounded-2xl p-2.5 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+
+            <Bell size={19} />
+
+            <span className="absolute right-2 top-2 h-2.5 w-2.5 rounded-full bg-red-500 ring-2 ring-white dark:ring-[#111827]" />
+
+          </button>
+
+          {/* Profile */}
+
+          <div
+            ref={dropdownRef}
+            className="relative"
+          >
+
+            <button
+              onClick={() => setOpen(!open)}
+              className="
+              flex
+              items-center
+              gap-3
+              rounded-2xl
+              px-2
+              py-1.5
+              hover:bg-slate-100
+              dark:hover:bg-slate-800
+              transition
+              "
+            >
+
+              <div className="relative">
+
+                <img
+                  src={
+                    profile?.avatar
+                      ? profile.avatar
+                      : `https://ui-avatars.com/api/?name=${encodeURIComponent(
+                        profile?.name || "Admin"
+                      )}&background=4f46e5&color=fff`
+                  }
+                  alt={profile?.name}
+                  className="w-10 h-10 rounded-full object-cover"
+                  onError={(e) => {
+                    e.target.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(
+                      profile?.name || "Admin"
+                    )}&background=4f46e5&color=fff`;
+                  }}
+                />
+
+                <span className="absolute bottom-0 right-0 h-3.5 w-3.5 rounded-full bg-green-500 border-2 border-white dark:border-[#111827]" />
+
+              </div>
+
+              <div className="hidden lg:block text-left">
+
+                <p className="font-semibold text-sm">
+                  {name}
+                </p>
+
+                <p className="text-xs text-slate-500">
+                  {role}
+                </p>
+
+              </div>
+
+              <ChevronDown
+                size={16}
+                className={`transition ${open ? "rotate-180" : ""
+                  }`}
+              />
+
+            </button>
+
+            <AnimatePresence>
+
+              {open && (
+
+                <motion.div
+                  initial={{
+                    opacity: 0,
+                    y: 15,
+                    scale: .97,
+                  }}
+                  animate={{
+                    opacity: 1,
+                    y: 0,
+                    scale: 1,
+                  }}
+                  exit={{
+                    opacity: 0,
+                    y: 15,
+                    scale: .97,
+                  }}
+                  transition={{
+                    duration: .18,
+                  }}
+                  className="
+                  absolute
+                  right-0
+                  mt-3
+                  w-72
+                  overflow-hidden
+                  rounded-3xl
+                  bg-white
+                  dark:bg-[#111827]
+                  shadow-2xl
+                  border
+                  border-slate-200
+                  dark:border-slate-700
+                  "
+                >
+
+                  {/* Header */}
+
+                  <div className="px-6 py-5 border-b dark:border-slate-700">
+
+                    <div className="flex gap-4">
+
+                      <img
+    src={avatar}
+    alt={name}
+    className="w-10 h-10 rounded-full object-cover"
+    onError={(e) => {
+        e.currentTarget.onerror = null;
+        e.currentTarget.src =
+            `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=4f46e5&color=ffffff`;
+    }}
+/>
+
+                      <div>
+
+                        <h3 className="font-bold">
+                          {name}
+                        </h3>
+
+                       <p className="text-sm text-slate-500">
+    {email}
+</p>
+
+                        <span className="mt-2 inline-flex items-center gap-1 rounded-full bg-indigo-100 dark:bg-indigo-900/40 px-3 py-1 text-xs font-semibold text-indigo-700 dark:text-indigo-300">
+
+                          <ShieldCheck size={14} />
+
+                          {role}
+
+                        </span>
+
+                      </div>
+
+                    </div>
+
+                  </div>
+
+                  {/* Menu */}
+
+                  <div className="p-2">
+
+                    <button
+                      onClick={() => {
+                        setOpen(false);
+                        navigate("/admin/profile");
+                      }}
+                      className="flex w-full items-center gap-3 rounded-2xl px-4 py-3 hover:bg-slate-100 dark:hover:bg-slate-800 transition"
+                    >
+
+                      <User size={18} />
+
+                      View Profile
+
+                    </button>
+
+                    <button
+                      onClick={() => {
+                        setOpen(false);
+                        navigate("/admin/profile/edit");
+                      }}
+                      className="flex w-full items-center gap-3 rounded-2xl px-4 py-3 hover:bg-slate-100 dark:hover:bg-slate-800 transition"
+                    >
+
+                      <Settings size={18} />
+
+                      Edit Profile
+
+                    </button>
+
+                  </div>
+
+                  <div className="border-t dark:border-slate-700 p-2">
+
+                    <button
+                      onClick={logout}
+                      className="
+                      flex
+                      w-full
+                      items-center
+                      gap-3
+                      rounded-2xl
+                      px-4
+                      py-3
+                      text-red-600
+                      hover:bg-red-50
+                      dark:hover:bg-red-900/20
+                      transition
+                      "
+                    >
+
+                      <LogOut size={18} />
+
+                      Logout
+
+                    </button>
+
+                  </div>
+
+                </motion.div>
+
+              )}
+
+            </AnimatePresence>
+
+          </div>
+
+        </div>
+
       </div>
+
     </header>
   );
+
 };
 
 export default Topbar;

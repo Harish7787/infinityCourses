@@ -56,6 +56,8 @@ import CourseDetails from "../Component/common/CourseDetails";
 import AddUser from "../Component/admin/AddUser";
 import EditUser from "../Component/admin/EditUser";
 import RestoreUsers from "../Component/admin/RestoreUsers";
+import ViewProfile from "../Component/common/ViewProfile";
+import EditProfile from "../Component/common/EditProfile";
 
 const AdminRoutes = () => {
   return (
@@ -78,11 +80,12 @@ const AdminRoutes = () => {
           <Route path="edit-course/:id" element={<EditCourse />} />
           <Route path="restore-courses" element={<RestoreCourses />} />
 
-            <Route path="add-user" element={<AddUser />}></Route>
-              <Route path="edit-user/:id" element={<EditUser />}></Route>
-              <Route path="restore-users" element={<RestoreUsers />}
-/>
+          <Route path="add-user" element={<AddUser />}></Route>
+          <Route path="edit-user/:id" element={<EditUser />}></Route>
+          <Route path="restore-users" element={<RestoreUsers />} />
+          <Route path="/profile" element={<ViewProfile />} />
 
+          <Route path="/profile/edit" element={<EditProfile />} />
         </Route>
 
       </Route>

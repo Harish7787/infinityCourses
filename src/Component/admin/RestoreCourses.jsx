@@ -385,9 +385,8 @@ const RestoreCourses = () => {
           </div>
 
         ) : (
-
-          <div className="overflow-x-auto">
-            <table className="w-full min-w-[900px]">
+          <div className="hidden lg:block overflow-x-auto">
+            <table className="w-full">
 
               <thead className="bg-slate-50 dark:bg-slate-800">
                 <tr className="text-slate-700 dark:text-slate-300">

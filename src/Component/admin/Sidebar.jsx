@@ -45,7 +45,7 @@ const menuItems = [
     label: "Users",
     path: "/admin/users",
     icon: Users,
-   },
+  },
   // {
   //   label: "Analytics",
   //   path: "/admin/analytics",
@@ -101,7 +101,7 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
           <div>
 
             <h1 className="bg-gradient-to-r from-indigo-500 to-violet-600 bg-clip-text text-xl font-bold text-transparent">
-              EduVerse
+              Infinity
             </h1>
 
             <p className="text-xs text-slate-500">
@@ -132,23 +132,22 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
 
           return (
 
-           <NavLink
-  key={item.label}
-  to={item.path}
-  end={item.path === "/admin"}
-  onClick={() => setIsOpen(false)}
-  className={({ isActive }) =>
-    `group relative flex items-center gap-3 rounded-2xl px-4 py-3 text-sm font-medium transition-all duration-300
-    ${
-      isActive
-        ? "bg-gradient-to-r from-indigo-500 to-violet-600 text-white shadow-lg"
-        : "text-slate-500 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800"
-    }`
-  }
->
-  <Icon size={18} />
-  {item.label}
-</NavLink>
+            <NavLink
+              key={item.label}
+              to={item.path}
+              end={item.path === "/admin"}
+              onClick={() => setIsOpen(false)}
+              className={({ isActive }) =>
+                `group relative flex items-center gap-3 rounded-2xl px-4 py-3 text-sm font-medium transition-all duration-300
+    ${isActive
+                  ? "bg-gradient-to-r from-indigo-500 to-violet-600 text-white shadow-lg"
+                  : "text-slate-500 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800"
+                }`
+              }
+            >
+              <Icon size={18} />
+              {item.label}
+            </NavLink>
           );
         })}
 
@@ -174,11 +173,10 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
                 onClick={() => setTheme(mode.id)}
                 className={`flex flex-1 items-center justify-center rounded-xl py-2 transition-all
 
-                ${
-                  theme === mode.id
+                ${theme === mode.id
                     ? "bg-white text-indigo-600 shadow-sm dark:bg-slate-800 dark:text-indigo-400"
                     : "text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"
-                }`}
+                  }`}
               >
 
                 <Icon size={18} />
