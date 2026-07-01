@@ -32,9 +32,11 @@
 
 // export default Home
 import React from "react";
+import { Star, BookOpen, GraduationCap, Award } from "lucide-react";
 import Navbar from "../../Component/common/header";
 import Footer from "../../Component/common/footer";
 import HeroSection from "../../Component/home/HeroSection";
+import { useNavigate } from "react-router-dom";
 import {
   ShieldCheck,
   Rocket,
@@ -48,50 +50,51 @@ import { motion } from "framer-motion";
 
 const Home = () => {
 
+  const navigate = useNavigate();
 
-const advantages = [
- {
-  icon:<Rocket/>,
-  title:"Career Focused Learning",
-  desc:"Learn skills that directly help you grow professionally."
- },
- {
-  icon:<Code2/>,
-  title:"Real World Projects",
-  desc:"Practice with industry based projects."
- },
- {
-  icon:<Users/>,
-  title:"Community Support",
-  desc:"Connect with mentors and learners."
- },
- {
-  icon:<ShieldCheck/>,
-  title:"Secure Platform",
-  desc:"Your learning progress is safe."
- }
-];
-
-
-const testimonials=[
- {
-  name:"Rahul Sharma",
-  text:"The practical courses helped me improve my development skills."
- },
- {
-  name:"Amit Patel",
-  text:"Amazing platform with modern learning experience."
- },
- {
-  name:"Priya Singh",
-  text:"Certificates and projects helped my career."
- }
-];
+  const advantages = [
+    {
+      icon: <Rocket />,
+      title: "Career Focused Learning",
+      desc: "Learn skills that directly help you grow professionally."
+    },
+    {
+      icon: <Code2 />,
+      title: "Real World Projects",
+      desc: "Practice with industry based projects."
+    },
+    {
+      icon: <Users />,
+      title: "Community Support",
+      desc: "Connect with mentors and learners."
+    },
+    {
+      icon: <ShieldCheck />,
+      title: "Secure Platform",
+      desc: "Your learning progress is safe."
+    }
+  ];
 
 
-return (
+  const testimonials = [
+    {
+      name: "Rahul Sharma",
+      text: "The practical courses helped me improve my development skills."
+    },
+    {
+      name: "Amit Patel",
+      text: "Amazing platform with modern learning experience."
+    },
+    {
+      name: "Priya Singh",
+      text: "Certificates and projects helped my career."
+    }
+  ];
 
-<div className="
+
+  return (
+
+    <div className="
 min-h-screen
 bg-zinc-100
 dark:bg-black
@@ -99,21 +102,21 @@ transition-colors
 ">
 
 
-<Navbar/>
+      <Navbar />
 
 
-<main>
+      <main>
 
 
-<HeroSection/>
+        <HeroSection />
 
 
 
 
 
-{/* Why section */}
+        {/* Why section */}
 
-<section className="
+        {/* <section className="
 py-24
 px-6
 bg-gradient-to-b
@@ -124,44 +127,44 @@ dark:to-indigo-950
 ">
 
 
-<div className="max-w-7xl mx-auto">
+          <div className="max-w-7xl mx-auto">
 
 
-<motion.h2
+            <motion.h2
 
-initial={{opacity:0,y:30}}
-whileInView={{opacity:1,y:0}}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
 
-className="
+              className="
 text-center
 text-4xl
 font-black
 dark:text-white
 "
 
->
+            >
 
-Why Choose Infinity Courses?
+              Why Choose Infinity Courses?
 
-</motion.h2>
+            </motion.h2>
 
 
 
-<p className="
+            <p className="
 text-center
 mt-4
 text-zinc-600
 dark:text-zinc-400
 ">
 
-Everything you need to build your future with technology.
+              Everything you need to build your future with technology.
 
-</p>
-
-
+            </p>
 
 
-<div className="
+
+
+            <div className="
 grid
 md:grid-cols-4
 gap-6
@@ -169,19 +172,19 @@ mt-14
 ">
 
 
-{
-advantages.map((item,index)=>(
+              {
+                advantages.map((item, index) => (
 
 
-<motion.div
+                  <motion.div
 
-key={index}
+                    key={index}
 
-whileHover={{
-scale:1.05
-}}
+                    whileHover={{
+                      scale: 1.05
+                    }}
 
-className="
+                    className="
 rounded-3xl
 bg-white/70
 dark:bg-zinc-900/70
@@ -192,10 +195,10 @@ p-7
 shadow-xl
 "
 
->
+                  >
 
 
-<div className="
+                    <div className="
 w-12
 h-12
 flex
@@ -208,73 +211,132 @@ to-violet-600
 text-white
 ">
 
-{item.icon}
+                      {item.icon}
 
-</div>
+                    </div>
 
 
-<h3 className="
+                    <h3 className="
 mt-5
 font-bold
 text-xl
 dark:text-white
 ">
 
-{item.title}
+                      {item.title}
 
-</h3>
+                    </h3>
 
 
-<p className="
+                    <p className="
 mt-3
 text-sm
 text-zinc-600
 dark:text-zinc-400
 ">
 
-{item.desc}
+                      {item.desc}
 
-</p>
-
-
-
-</motion.div>
-
-
-))
-
-}
+                    </p>
 
 
 
-</div>
+                  </motion.div>
+
+
+                ))
+
+              }
 
 
 
-</div>
-
-
-</section>
+            </div>
 
 
 
+          </div>
+
+
+        </section> */}
+
+        <section className="py-20 px-6 bg-white dark:bg-zinc-950">
+          <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8">
+
+            {[
+              {
+                icon: <BookOpen className="h-8 w-8" />,
+                number: "150+",
+                label: "Courses"
+              },
+              {
+                icon: <Users className="h-8 w-8" />,
+                number: "10K+",
+                label: "Students"
+              },
+              {
+                icon: <Award className="h-8 w-8" />,
+                number: "98%",
+                label: "Success Rate"
+              },
+              {
+                icon: <GraduationCap className="h-8 w-8" />,
+                number: "500+",
+                label: "Certificates"
+              }
+            ].map((item, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{
+                  duration: 0.5,
+                  delay: index * 0.15
+                }}
+                whileHover={{
+                  y: -12,
+                  scale: 1.04
+                }}
+                className="rounded-3xl bg-white dark:bg-zinc-900 shadow-xl p-8 text-center"
+              >
+                <div className="text-indigo-600 flex justify-center">
+                  {item.icon}
+                </div>
+
+                <h2 className="mt-4 text-4xl font-black dark:text-white">
+                  {item.number}
+                </h2>
+
+                <p className="mt-2 text-zinc-500">
+                  {item.label}
+                </p>
+              </motion.div>
+            ))}
+          </div>
+        </section>
 
 
 
 
-{/* Learning Journey */}
+
+        {/* Learning Journey */}
 
 
-<section className="
+        <section className="
 py-24
 px-6
 ">
 
 
-<div className="max-w-6xl mx-auto">
+          <div className="max-w-6xl mx-auto">
 
 
-<div className="
+            <motion.div
+              initial={{ opacity: 0, y: 60 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="
 rounded-3xl
 bg-gradient-to-r
 from-indigo-600
@@ -282,70 +344,73 @@ to-violet-600
 p-10
 text-white
 shadow-2xl
-">
+relative
+overflow-hidden
+"
+            >
 
 
-<h2 className="
+              <h2 className="
 text-4xl
 font-black
 ">
 
-Start Your Learning Journey 🚀
+                Start Your Learning Journey 🚀
 
-</h2>
+              </h2>
 
 
-<p className="
+              <p className="
 mt-4
 max-w-xl
 text-indigo-100
 ">
 
-Join thousands of students learning programming,
-design and technology with expert guidance.
+                Join thousands of students learning programming,
+                design and technology with expert guidance.
 
-</p>
-
-
-<button
-
-className="
-mt-8
-bg-white
-text-indigo-600
-px-8
-py-3
-rounded-xl
-font-bold
-"
-
->
-
-Get Started
-
-</button>
+              </p>
 
 
-
-</div>
+              <motion.button
+                whileHover={{
+                  scale: 1.08
+                }}
+                whileTap={{
+                  scale: 0.95
+                }}
+                className="mt-8 bg-white text-indigo-600 px-8 py-3 rounded-xl font-bold shadow-xl"
+                onClick={
+                  ()=>
+                  {
+                    navigate('/courses');
+                  }
+                }
+              >
+                Get Started →
+              </motion.button>
 
 
 
-</div>
+            </motion.div>
 
 
-</section>
+
+          </div>
 
 
+        </section>
 
 
 
 
 
-{/* Testimonials */}
 
 
-<section className="
+        {/* Testimonials */}
+
+
+        <section className="
 py-20
 px-6
 bg-white
@@ -353,20 +418,20 @@ dark:bg-zinc-950
 ">
 
 
-<h2 className="
+          <h2 className="
 text-center
 text-4xl
 font-black
 dark:text-white
 ">
 
-Student Reviews
+            Student Reviews
 
-</h2>
+          </h2>
 
 
 
-<div className="
+          <div className="
 max-w-6xl
 mx-auto
 grid
@@ -376,142 +441,173 @@ mt-12
 ">
 
 
-{
-testimonials.map((item,index)=>(
+            {
+              testimonials.map((item, index) => (
 
 
-<motion.div
-
-whileHover={{
-y:-10
-}}
-
-key={index}
-
-className="
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 40 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{
+                    duration: 0.5,
+                    delay: index * 0.15
+                  }}
+                  whileHover={{
+                    y: -12,
+                    scale: 1.03
+                  }}
+                  className="
 rounded-3xl
 p-7
 bg-zinc-100
 dark:bg-zinc-900
 shadow-lg
 "
+                >
 
->
 
-
-<Trophy className="
+                  <Trophy className="
 text-indigo-500
 "
-/>
+                  />
 
-
-<p className="
+<div className="flex gap-1 mt-4 text-yellow-400">
+  {[...Array(5)].map((_, i) => (
+    <Star
+      key={i}
+      className="h-4 w-4"
+      fill="currentColor"
+    />
+  ))}
+</div>
+                  <p className="
 mt-5
 text-zinc-600
 dark:text-zinc-300
 ">
 
-"{item.text}"
+                    "{item.text}"
 
-</p>
+                  </p>
 
 
 
-<h3 className="
+                  <h3 className="
 mt-5
 font-bold
 dark:text-white
 ">
 
-- {item.name}
+                    - {item.name}
 
-</h3>
-
-
-
-</motion.div>
+                  </h3>
 
 
-))
+
+                </motion.div>
 
 
-}
+              ))
 
 
-</div>
+            }
 
 
-</section>
+          </div>
 
 
+        </section>
 
 
 
 
 
-{/* Final CTA */}
 
 
-<section className="
+        {/* Final CTA */}
+
+
+        <section className="
 py-20
 px-6
 ">
 
 
-<div className="
+<motion.div
+  initial={{ opacity: 0, scale: 0.95 }}
+  whileInView={{ opacity: 1, scale: 1 }}
+  viewport={{ once: true }}
+  transition={{ duration: 0.6 }}
+  className="
 max-w-5xl
 mx-auto
 text-center
-">
+"
+>
 
+<motion.div
+  animate={{ y: [0, -8, 0] }}
+  transition={{
+    duration: 2,
+    repeat: Infinity
+  }}
+>
+  <Zap className="mx-auto text-indigo-500 h-12 w-12" />
+</motion.div>
 
-<Zap className="
-mx-auto
-text-indigo-500
-h-12
-w-12
-"/>
-
-
-<h2 className="
+            <h2 className="
 mt-5
 text-5xl
 font-black
 dark:text-white
 ">
 
-Upgrade Your Skills Today
+              Upgrade Your Skills Today
 
-</h2>
+            </h2>
 
 
-<p className="
+            <p className="
 mt-5
 text-zinc-600
 dark:text-zinc-400
 ">
 
-Learn. Build. Grow.
+              Learn. Build. Grow.
 
-</p>
+            </p>
+
+<motion.button
+  whileHover={{ scale: 1.08 }}
+  whileTap={{ scale: 0.95 }}
+  className="mt-8 rounded-xl bg-gradient-to-r from-indigo-500 to-violet-600 px-8 py-3 text-white font-bold shadow-xl"
+  onClick={
+    ()=>
+    {
+      navigate('/latest')
+    }
+  }
+>
+  Start Learning
+</motion.button>
+
+          </motion.div>
+
+        </section>
 
 
 
-</div>
-
-</section>
+      </main>
 
 
-
-</main>
-
-
-<Footer/>
+      <Footer />
 
 
-</div>
+    </div >
 
-)
+  )
 
 }
 

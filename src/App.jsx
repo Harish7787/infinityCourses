@@ -51,6 +51,8 @@ import Register from "./pages/User/Register";
 import Dashboard from "./pages/admin/Dashboard";
 import AdminRoutes from "./routes/AdminRoutes";
 import UserRoutes from "./routes/UserRoutes";
+import ScrollToTop from "./Component/common/ScrollToTop";
+import NotFound from "./Component/common/NotFound";
 
 function App() {
   return (
@@ -69,6 +71,7 @@ function App() {
     // </BrowserRouter>
 
      <BrowserRouter>
+      <ScrollToTop />
       <Routes>
 
         {/* User Routes */}
@@ -76,6 +79,8 @@ function App() {
 
         {/* Admin Routes */}
         <Route path="/admin/*" element={<AdminRoutes />} />
+
+       <Route path="*" element={<NotFound />} />
 
       </Routes>
     </BrowserRouter>

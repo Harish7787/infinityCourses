@@ -10,6 +10,7 @@ import Login from "../pages/User/Login";
 import Register from "../pages/User/Register";
 import Home from "../pages/User/Home";
 import Contact from "../pages/User/Contact";
+import NotFound from "../Component/common/NotFound";
 
 const UserRoutes = () => {
   return (
@@ -28,7 +29,7 @@ const UserRoutes = () => {
         path="/course/:id"
         element={<CourseDetails />}
       />
-
+ <Route path="*" element={<NotFound />} />
     </Routes>
   );
 };

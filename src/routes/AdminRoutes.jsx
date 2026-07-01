@@ -58,6 +58,7 @@ import EditUser from "../Component/admin/EditUser";
 import RestoreUsers from "../Component/admin/RestoreUsers";
 import ViewProfile from "../Component/common/ViewProfile";
 import EditProfile from "../Component/common/EditProfile";
+import NotFound from "../Component/common/NotFound";
 
 const AdminRoutes = () => {
   return (
@@ -86,6 +87,7 @@ const AdminRoutes = () => {
           <Route path="/profile" element={<ViewProfile />} />
 
           <Route path="/profile/edit" element={<EditProfile />} />
+           <Route path="*" element={<NotFound />} />
         </Route>
 
       </Route>
