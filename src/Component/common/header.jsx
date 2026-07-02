@@ -20,7 +20,7 @@ export default function Navbar() {
   const location = useLocation();
   const [profileOpen, setProfileOpen] = useState(false);
 
- 
+
 
   const navigate = useNavigate();
 
@@ -375,70 +375,83 @@ export default function Navbar() {
       {/* MOBILE DRAWERS */}
       <AnimatePresence>
         {mobileOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="fixed top-24 left-4 right-4 z-[999] rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-5 shadow-2xl lg:hidden"
-          >
-            {/* MOBILE NAVIGATION */}
-            <nav className="flex flex-col gap-3">
-              {navItems.map((item) => (
-                <Link
-                  key={item.name}
-                  to={item.path}
-                  onClick={() => setMobileOpen(false)}
-                  className="rounded-xl px-4 py-3 text-sm font-medium text-zinc-700 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors"
+          <>
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 0.45 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setMobileOpen(false)}
+              className="fixed inset-0 z-[998] bg-black lg:hidden"
+            />
+
+            {/* Drawer */}
+            <motion.aside
+              initial={{ x: "-100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "-100%" }}
+              transition={{ duration: 0.3 }}
+              className="
+          fixed
+          top-0
+          left-0
+          z-[999]
+          h-screen
+          w-[320px]
+          bg-white
+          dark:bg-zinc-900
+          shadow-2xl
+          flex
+          flex-col
+          lg:hidden
+        "
+            >
+              {/* Header */}
+              <div className="flex items-center justify-between px-6 py-5 border-b border-zinc-200 dark:border-zinc-800">
+                <div
+                  onClick={() => {
+                    navigate("/");
+                    setMobileOpen(false);
+                  }}
+                  className="flex items-center gap-3 cursor-pointer"
                 >
-                  {item.name}
-                </Link>
-              ))}
-            </nav>
+                  <img
+                    src="/learn.jpg"
+                    alt="Logo"
+                    className="w-11 h-11 rounded-lg object-cover"
+                  />
 
-            {/* MOBILE ACTION BUTTONS */}
-            <div className="mt-5 flex flex-col gap-3">
-              <button
-                onClick={() => setDarkMode(!darkMode)}
-                className="rounded-xl border border-zinc-300 dark:border-zinc-700 px-4 py-3 text-sm font-medium text-zinc-700 dark:text-zinc-200 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors"
-              >
-                {darkMode ? "Light Mode" : "Dark Mode"}
-              </button>
+                  <div>
+                    <h2 className="font-bold text-lg dark:text-white">
+                      Infinity
+                    </h2>
 
-              {/* {user ? (
-                <>
-                  <button
-                    onClick={() => {
-                      navigate("/courses");
-                      setMobileOpen(false);
-                    }}
-                    className="rounded-xl bg-gradient-to-r from-indigo-500 to-violet-600 px-4 py-3 text-sm font-semibold text-white"
-                  >
-                    Get Started
-                  </button>
-                  <button
-                    onClick={() => {
-                      handleLogout();
-                      setMobileOpen(false);
-                    }}
-                    className="rounded-xl border border-zinc-300 dark:border-zinc-700 px-4 py-3 text-sm font-medium text-zinc-700 dark:text-zinc-200"
-                  >
-                    Logout
-                  </button>
-                </>
-              ) : ( */}
+                    <p className="text-xs text-zinc-500">
+                      Courses
+                    </p>
+                  </div>
+                </div>
 
-              {user ? (
-                <>
-                  <div className="flex items-center gap-3 border-b pb-4">
+                <button
+                  onClick={() => setMobileOpen(false)}
+                  className="p-2 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-800"
+                >
+                  <X className="w-6 h-6 dark:text-white" />
+                </button>
+              </div>
 
+              {/* User */}
+              {user && (
+                <div className="px-6 py-5 border-b border-zinc-200 dark:border-zinc-800">
+                  <div className="flex items-center gap-4">
                     <img
                       src={avatar}
-                      className="w-14 h-14 rounded-full"
                       alt=""
+                      className="w-14 h-14 rounded-full object-cover border"
                     />
 
                     <div>
-                      <h3 className="font-semibold">
+                      <h3 className="font-semibold dark:text-white">
                         {user.name}
                       </h3>
 
@@ -446,73 +459,131 @@ export default function Navbar() {
                         {user.email}
                       </p>
                     </div>
-
                   </div>
+                </div>
+              )}
 
-                  <button
-                    onClick={() => {
-                      navigate("/profile");
-                      setMobileOpen(false);
-                    }}
-                    className="rounded-xl border px-4 py-3 text-left  text-white"
-                  >
-                    My Profile
-                  </button>
+              {/* Navigation */}
+              <div className="flex-1 overflow-y-auto py-4 px-4">
+                <h4 className="text-xs uppercase tracking-wider text-zinc-400 px-2 mb-3">
+                  Navigation
+                </h4>
 
-                  <button
-                    onClick={() => {
-                      navigate("/profile/edit");
-                      setMobileOpen(false);
-                    }}
-                    className="rounded-xl border px-4 py-3 text-left dark:text-white"
-                  >
-                    Edit Profile
-                  </button>
+                <nav className="space-y-2">
+                  {navItems.map((item) => (
+                    <button
+                      key={item.name}
+                      onClick={() => {
+                        navigate(item.path);
+                        setMobileOpen(false);
+                      }}
+                      className={`
+                  w-full
+                  text-left
+                  px-4
+                  py-3
+                  rounded-xl
+                  transition
+                  ${location.pathname === item.path
+                          ? "bg-indigo-600 text-white"
+                          : "hover:bg-zinc-100 dark:hover:bg-zinc-800 dark:text-white"
+                        }
+                `}
+                    >
+                      {item.name}
+                    </button>
+                  ))}
+                </nav>
 
-                  <button
-                    onClick={() => {
-                      navigate("/courses");
-                      setMobileOpen(false);
-                    }}
-                    className="rounded-xl bg-gradient-to-r from-indigo-500 to-violet-600 px-4 py-3 text-white"
-                  >
-                    Get Started
-                  </button>
+                {/* User Menu */}
+                {user && (
+                  <>
+                    <h4 className="text-xs uppercase tracking-wider text-zinc-400 px-2 mt-8 mb-3">
+                      Account
+                    </h4>
 
+                    <div className="space-y-2">
+                      <button
+                        onClick={() => {
+                          navigate("/profile");
+                          setMobileOpen(false);
+                        }}
+                        className="w-full flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-zinc-100 dark:hover:bg-zinc-800 dark:text-white"
+                      >
+                        <User size={18} />
+                        My Profile
+                      </button>
+
+                      <button
+                        onClick={() => {
+                          navigate("/profile/edit");
+                          setMobileOpen(false);
+                        }}
+                        className="w-full flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-zinc-100 dark:hover:bg-zinc-800 dark:text-white"
+                      >
+                        <Settings size={18} />
+                        Edit Profile
+                      </button>
+
+                      <button
+                        onClick={() => {
+                          navigate("/courses");
+                          setMobileOpen(false);
+                        }}
+                        className="w-full rounded-xl bg-gradient-to-r from-indigo-500 to-violet-600 py-3 text-white font-semibold"
+                      >
+                        Get Started
+                      </button>
+                    </div>
+                  </>
+                )}
+              </div>
+
+              {/* Bottom */}
+              <div className="border-t border-zinc-200 dark:border-zinc-800 p-5 space-y-3">
+                <button
+                  onClick={() => setDarkMode(!darkMode)}
+                  className="w-full rounded-xl border border-zinc-300 dark:border-zinc-700 py-3 dark:text-white"
+                >
+                  {darkMode ? "☀ Light Mode" : "🌙 Dark Mode"}
+                </button>
+
+                {user ? (
                   <button
                     onClick={() => {
                       handleLogout();
                       setMobileOpen(false);
                     }}
-                    className="rounded-xl border border-red-200 text-red-600 px-4 py-3"
+                    className="w-full rounded-xl bg-red-50 dark:bg-red-900/20 py-3 font-semibold text-red-600"
                   >
                     Logout
                   </button>
-                </>
-              ) : (
-                <>
-                  <button
-                    onClick={() => {
-                      navigate("/login");
-                      setMobileOpen(false);
-                    }}
-                    className="rounded-xl border border-zinc-300 dark:border-zinc-700 px-4 py-3 text-sm font-medium text-zinc-700 dark:text-zinc-200"
-                  >
-                    Login
-                  </button>
-                  <button
-                    onClick={() => {
-                      navigate("/register");
-                      setMobileOpen(false);
-                    }}
-                    className="rounded-xl bg-gradient-to-r from-indigo-500 to-violet-600 px-4 py-3 text-sm font-semibold text-white"
-                  >
-                    Register
-                  </button>
-                </>
-              )}
-            </div>
-          </motion.div>
+                ) : (
+                  <>
+                    <button
+                      onClick={() => {
+                        navigate("/login");
+                        setMobileOpen(false);
+                      }}
+                      className="w-full rounded-xl border py-3 dark:text-white"
+                    >
+                      Login
+                    </button>
+
+                    <button
+                      onClick={() => {
+                        navigate("/register");
+                        setMobileOpen(false);
+                      }}
+                      className="w-full rounded-xl bg-gradient-to-r from-indigo-500 to-violet-600 py-3 font-semibold text-white"
+                    >
+                      Register
+                    </button>
+                  </>
+                )}
+              </div>
+            </motion.aside>
+          </>
         )}
       </AnimatePresence>
     </>

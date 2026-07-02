@@ -4,7 +4,8 @@ import axios from "axios";
 const API_URL =
   window.location.hostname === "localhost"
     ? "http://localhost:2334"
-    : "http://192.168.1.113:2334";
+    : "http://192.168.1.113:2334"
+     
 
 const BASE_URL = `${API_URL}/api/auth`;
 const BASE_ORDER_URL = `${API_URL}/api/payment`;
@@ -33,3 +34,4 @@ export const createOrder = async (orderData) => {
     }
   );
 };
+ //"https://payment-gateway.onrender.com";

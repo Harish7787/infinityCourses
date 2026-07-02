@@ -155,7 +155,7 @@ const EditUserProfile = () => {
 
             <form
               onSubmit={handleSubmit}
-              className="grid md:grid-cols-2 gap-6 p-10"
+              className="grid md:grid-cols-2 gap-6 p-10 dark:text-white"
             >
 
               {/* Name */}
@@ -205,7 +205,7 @@ const EditUserProfile = () => {
                 <button
                   type="button"
                   onClick={() => navigate("/profile")}
-                  className="flex items-center gap-2 rounded-xl border px-6 py-3 font-semibold hover:bg-slate-100 dark:hover:bg-zinc-800 transition"
+                  className="flex items-center gap-2 rounded-xl border px-6 py-3 font-semibold hover:bg-slate-100 dark:hover:bg-zinc-800 transition dark:text-white"
                 >
                   <X size={18} />
                   Cancel
