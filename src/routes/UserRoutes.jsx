@@ -11,6 +11,10 @@ import Register from "../pages/User/Register";
 import Home from "../pages/User/Home";
 import Contact from "../pages/User/Contact";
 import NotFound from "../Component/common/NotFound";
+import Features from "../pages/common/Features";
+import InfoPage from "../pages/common/InfoPage";
+import UserProfile from "../Component/common/UserProfile";
+import EditUserProfile from "../Component/common/EditUserProfile";
 
 const UserRoutes = () => {
   return (
@@ -29,7 +33,11 @@ const UserRoutes = () => {
         path="/course/:id"
         element={<CourseDetails />}
       />
- <Route path="*" element={<NotFound />} />
+      <Route path="/profile" element={<UserProfile />} />
+      <Route path="/profile/edit" element={<EditUserProfile />} />
+      <Route path="/features" element={<Features />} />
+      <Route path="/info/:page" element={<InfoPage />} />
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 };

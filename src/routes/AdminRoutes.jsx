@@ -56,9 +56,11 @@ import CourseDetails from "../Component/common/CourseDetails";
 import AddUser from "../Component/admin/AddUser";
 import EditUser from "../Component/admin/EditUser";
 import RestoreUsers from "../Component/admin/RestoreUsers";
-import ViewProfile from "../Component/common/ViewProfile";
-import EditProfile from "../Component/common/EditProfile";
+import ViewProfile from "../Component/admin/ViewProfile";
+import EditProfile from "../Component/admin/EditProfile";
 import NotFound from "../Component/common/NotFound";
+import Features from "../pages/common/Features";
+import InfoPage from "../pages/common/InfoPage";
 
 const AdminRoutes = () => {
   return (
@@ -88,6 +90,8 @@ const AdminRoutes = () => {
 
           <Route path="/profile/edit" element={<EditProfile />} />
            <Route path="*" element={<NotFound />} />
+           <Route path="/features" element={<Features />} />
+           <Route path="/info/:page" element={<InfoPage />} />
         </Route>
 
       </Route>

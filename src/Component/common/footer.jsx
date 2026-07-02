@@ -172,12 +172,30 @@ import {
     Sparkles,
 } from "lucide-react";
 
-const footerLinks = {
-    Product: ["Features", "Pricing", "Integrations", "Updates"],
-    Company: ["About", "Careers", "Blog", "Contact"],
-    Resources: ["Documentation", "Help Center", "Community", "Privacy"],
-};
+import { Link } from "react-router-dom";
 
+const footerLinks = {
+    Product: [
+        { name: "Features", path: "/features" },
+        { name: "Courses", path: "/courses" },
+        { name: "Latest Courses", path: "/latest-courses" },
+        { name: "Pricing", path: "/pricing" },
+    ],
+
+    Company: [
+        { name: "About", path: "/about" },
+        { name: "Careers", path: "/careers" },
+        { name: "Blog", path: "/blog" },
+        { name: "Contact", path: "/contact" },
+    ],
+
+    Resources: [
+        { name: "Documentation", path: "/info/documentation" },
+        { name: "Help Center", path: "/info/help-center" },
+        { name: "Community", path: "/info/community" },
+        { name: "Privacy Policy", path: "/info/privacy" },
+    ],
+};
 export default function Footer() {
     return (
         <footer className="relative mt-24 px-4 pb-8">
@@ -205,16 +223,16 @@ export default function Footer() {
                         {/* Brand */}
                         <div className="lg:col-span-2">
                             <div className="flex items-center gap-3">
-                                    <div
-                                        className="
+                                <div
+                                    className="
                         flex h-11 w-11 items-center justify-center
                         rounded-xl
                         bg-gradient-to-br from-indigo-500 to-violet-600
                         shadow-lg
                     "
-                                    >
-                                        <Sparkles className="h-5 w-5 text-white" />
-                                    </div>
+                                >
+                                    <Sparkles className="h-5 w-5 text-white" />
+                                </div>
 
                                 <div>
                                     <h2 className="text-lg font-semibold tracking-tight text-zinc-900 dark:text-white">
@@ -265,17 +283,21 @@ export default function Footer() {
 
                                 <ul className="mt-4 space-y-3">
                                     {links.map((link) => (
-                                        <li key={link}>
-                                            <a
-                                                href="#"
+                                        <li key={link.name}>
+                                            <Link
+                                                to={link.path}
                                                 className="
-                                text-sm text-zinc-600 dark:text-zinc-400
-                                transition-colors duration-200
-                                hover:text-zinc-900 dark:hover:text-white
-                              "
+        text-sm
+        text-zinc-600
+        dark:text-zinc-400
+        transition-all
+        duration-300
+        hover:text-indigo-600
+        dark:hover:text-indigo-400
+      "
                                             >
-                                                {link}
-                                            </a>
+                                                {link.name}
+                                            </Link>
                                         </li>
                                     ))}
                                 </ul>
@@ -298,7 +320,7 @@ export default function Footer() {
                         </p>
 
                         <div className="flex items-center gap-5">
-                            <a
+                            {/* <a
                                 href="#"
                                 className="hover:text-zinc-900 dark:hover:text-white transition-colors"
                             >
@@ -317,7 +339,28 @@ export default function Footer() {
                                 className="hover:text-zinc-900 dark:hover:text-white transition-colors"
                             >
                                 Cookies
-                            </a>
+                            </a> */}
+
+                            <Link
+                                to="/terms"
+                                className="hover:text-indigo-600 transition-colors"
+                            >
+                                Terms
+                            </Link>
+
+                            <Link
+                                to="/privacy"
+                                className="hover:text-indigo-600 transition-colors"
+                            >
+                                Privacy
+                            </Link>
+
+                            <Link
+                                to="/cookies"
+                                className="hover:text-indigo-600 transition-colors"
+                            >
+                                Cookies
+                            </Link>
                         </div>
                     </div>
                 </div>
