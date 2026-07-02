@@ -317,7 +317,7 @@ export default function Navbar() {
                         className="w-full flex items-center gap-3 px-5 py-4 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition  dark:text-white"
                       >
                         <User size={18} />
-                        My Profile
+                         Profile
                       </button>
 
                       <button
