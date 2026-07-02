@@ -481,7 +481,7 @@ export default function Navbar() {
                   w-full
                   text-left
                   px-4
-                  py-3
+                  py-2
                   rounded-xl
                   transition
                   ${location.pathname === item.path
@@ -498,7 +498,7 @@ export default function Navbar() {
                 {/* User Menu */}
                 {user && (
                   <>
-                    <h4 className="text-xs uppercase tracking-wider text-zinc-400 px-2 mt-8 mb-3">
+                    <h4 className=" text-xs uppercase tracking-wider text-zinc-400 px-2 mt-13 mb-5">
                       Account
                     </h4>
 
@@ -511,10 +511,10 @@ export default function Navbar() {
                         className="w-full flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-zinc-100 dark:hover:bg-zinc-800 dark:text-white"
                       >
                         <User size={18} />
-                        My Profile
+                         Profile
                       </button>
 
-                      <button
+                      {/* <button
                         onClick={() => {
                           navigate("/profile/edit");
                           setMobileOpen(false);
@@ -523,7 +523,7 @@ export default function Navbar() {
                       >
                         <Settings size={18} />
                         Edit Profile
-                      </button>
+                      </button> */}
 
                       <button
                         onClick={() => {
